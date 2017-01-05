@@ -60,10 +60,22 @@ $ kafka-topics.sh \
 
 使用virtualenv来构建python环境
 ```bash
-$ virtualenv .ips
-$ source .ips/bin/activate
+$ virtualenv .whois
+$ source .whois/bin/activate
 $ pip install -r requirements.txt requirements-dev.txt
 ```
+
+以下命令生成数据库相关内容
+```apple js
+$ python manage.py migrate
+```
+
+按照下文中测试数据的获取方式，得到一个top-1m.csv文件，使用
+```apple js
+$ python manage.py import_top1m top-1m.csv
+```
+可以将需要进行whois查询的数据导入到server端的数据库
+
 
 ##测试数据说明：
 我们使用免费域名列表数据来进行测试。  

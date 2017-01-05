@@ -1,13 +1,15 @@
 from random import randint
 from time import sleep
+from mass_whois.config import get_config
 
 from django.core.management.base import BaseCommand
 
 import requests
 
 def main_loop():
-    coserver_endpoint = 'http://127.0.0.1:8000/coserver/'
-    print 'test'
+    coserver_endpoint = get_config('COSERVER_ENDPOINT')
+        #'http://127.0.0.1:8000/coserver/'
+    print 'get data from' + coserver_endpoint
 
 
     try:
