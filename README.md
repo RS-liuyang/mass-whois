@@ -17,6 +17,7 @@ $ sudo apt-get install -y \
 确认已自动启动redis和zookeeperd。
   
 #####安装一个公认的稳定版kafka：
+在coserver端的服务器上安装即可
 
 ```
 $ cd /tmp
@@ -62,8 +63,12 @@ $ kafka-topics.sh \
 ```bash
 $ virtualenv .whois
 $ source .whois/bin/activate
-$ pip install -r requirements.txt requirements-dev.txt
+$ pip install -r requirements.txt
 ```
+
+  
+在coserver服务器上，运行如下命令
+
 
 以下命令生成数据库相关内容
 ```apple js
@@ -76,6 +81,37 @@ $ python manage.py import_top1m top-1m.csv
 ```
 可以将需要进行whois查询的数据导入到server端的数据库
 
+启动coserver上的http服务，用于work获取域名信息：
+
+```apple js
+$ python manage.py runserver 0.0.0.0:8000
+```
+
+
+
+在work服务器上，进入代码目录，执行
+```apple js
+$ python manage.py set_coserver_ip ***.*.*.***
+```
+设定coserver服务器使用的ip
+
+执行
+```apple js
+$ python manage.py get_names_whois
+```
+开始获取域名并执行业务功能。
+
+在coserver服务器上，进入代码目录，执行
+```apple js
+$ python manage.py set_coserver_ip 127.0.0.1
+```
+设定coserver服务器使用的ip（本机）
+
+执行
+```apple js
+$ python manage.py collect_whois_kafka
+```
+此时程序从kafka中获取数据并将结果保存到数据库中。（缺省sqlte3）
 
 ##测试数据说明：
 我们使用免费域名列表数据来进行测试。  
@@ -89,3 +125,15 @@ https://statvoo.com/dl/top-1million-sites.csv.zip
 opendns提供的1百万域名列表：
 http://s3-us-west-1.amazonaws.com/umbrella-static/top-1m.csv.zip
 
+##测试辅助命令
+查看kafka的队列内容：
+```apple js
+kafka-console-consumer.sh --zookeeper 127.0.0.1:2181 --topic results --from-beginning
+```
+
+##ToDo
+1. 针对运维的说明需要补充，如在aws上的部署方法。
+2. 数据结果的格式，数据内容中的字符集，域名格式的转换，数据结果检查和重新查询... 需要进一步细化和完善
+3. 数据库调整为mysql
+4. 客户端使用pythonwhois，效率不高，应对所有TLD对应的whois server分别设定超时时间，不要每条查询都休眠5秒，此处需要有自己的whois实现。
+5. 更多异常控制。
