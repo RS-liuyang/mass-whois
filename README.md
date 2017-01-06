@@ -126,13 +126,17 @@ http://s3-us-west-1.amazonaws.com/umbrella-static/top-1m.csv.zip
 
 ##测试辅助命令
 查看kafka的队列内容：
-```apple js
+```
 kafka-console-consumer.sh --zookeeper 127.0.0.1:2181 --topic results --from-beginning
 ```
 
 ##ToDo
-1. 针对运维的说明需要补充，如在aws上的部署方法。
-2. 数据结果的格式，数据内容中的字符集，域名格式的转换，数据结果检查和重新查询... 需要进一步细化和完善
-3. 数据库调整为mysql
-4. 客户端使用pythonwhois，效率不高，应对所有TLD对应的whois server分别设定超时时间，不要每条查询都休眠5秒，此处需要有自己的whois实现。
+1. 针对运维的说明需要补充，如在aws上的部署方法。 
+
+2. 数据结果的格式，数据内容中的字符集，域名格式的转换，数据结果检查和重新查询... 需要进一步细化和完善 
+
+3. 数据库调整为mysql 
+
+4. 客户端使用pythonwhois，效率不高，应对所有TLD对应的whois server分别设定超时时间，不要每条查询都休眠5秒，此处需要有自己的whois实现。 
+
 5. 更多异常控制。
