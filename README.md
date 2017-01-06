@@ -71,44 +71,43 @@ $ pip install -r requirements.txt
 
 
 以下命令生成数据库相关内容
-```apple js
+```
 $ python manage.py migrate
 ```
 
 按照下文中测试数据的获取方式，得到一个top-1m.csv文件，使用
-```apple js
+```
 $ python manage.py import_top1m top-1m.csv
 ```
 可以将需要进行whois查询的数据导入到server端的数据库
 
 启动coserver上的http服务，用于work获取域名信息：
 
-```apple js
+```
 $ python manage.py runserver 0.0.0.0:8000
 ```
 
 
-
 在work服务器上，进入代码目录，执行
-```apple js
+```
 $ python manage.py set_coserver_ip ***.*.*.***
 ```
 设定coserver服务器使用的ip
 
 执行
-```apple js
+```
 $ python manage.py get_names_whois
 ```
 开始获取域名并执行业务功能。
 
 在coserver服务器上，进入代码目录，执行
-```apple js
+```
 $ python manage.py set_coserver_ip 127.0.0.1
 ```
 设定coserver服务器使用的ip（本机）
 
 执行
-```apple js
+```
 $ python manage.py collect_whois_kafka
 ```
 此时程序从kafka中获取数据并将结果保存到数据库中。（缺省sqlte3）
